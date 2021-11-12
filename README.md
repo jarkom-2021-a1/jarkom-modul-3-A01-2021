@@ -207,6 +207,7 @@ Pada loguetown, jalankan :
 
 ### 9 Agar transaksi jual beli lebih aman dan pengguna website ada dua orang, proxy dipasang autentikasi user proxy dengan enkripsi MD5 dengan dua username, yaitu luffybelikapalyyy dengan password luffy_yyy dan zorobelikapalyyy dengan password zoro_yyy 
 Langkah - langkah :
+- 
 
 
 ### 10 Transaksi jual beli tidak dilakukan setiap hari, oleh karena itu akses internet dibatasi hanya dapat diakses setiap hari Senin-Kamis pukul 07.00-11.00 dan setiap hari Selasa-Jum’at pukul 17.00-03.00 keesokan harinya (sampai Sabtu pukul 03.00) 
@@ -224,7 +225,14 @@ Langkah - langkah :
 
 
 Kendala : 
-
+- Kesusahan dengan dhcp relay karena tidak ada di modul
+- Kesusahan unutk no 12 dan 13 ketika membatasi bandwith 
+- xxx
+- xxx
 
 Pembagian Tugas :
+- 05111940000124 Gerry Sihaj (No 1 - 4)
+- 05111940000130 Adrian (No 5 - 8)
+- 05111940000083 Fajar Satria (No 9 - 13)
+
 
