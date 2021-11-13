@@ -321,8 +321,8 @@ Langkah - langkah :
 Kendala : 
 - Kesusahan dengan dhcp relay karena tidak ada di modul
 - Kesusahan unutk no 12 dan 13 ketika membatasi bandwith 
-- xxx
-- xxx
+- disaat menggunakn dhcp lupa menghilangkan perintah echo nameserver xxxxx > resolv.conf sehingga dhcp tidak bisa bekerja dengan baik
+- kebingungan mengkonversikan satuan bandwith
 
 Pembagian Tugas :
 - 05111940000124 Gerry Sihaj (No 1 - 4)
