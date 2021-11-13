@@ -204,14 +204,37 @@ Pada loguetown, jalankan :
 - Coba ping website its.ac.id :  
 ![5](https://user-images.githubusercontent.com/65168221/141477611-b3efccaa-15c4-4032-a36d-e6363b9f4d78.png)
 
-
 ### 9 Agar transaksi jual beli lebih aman dan pengguna website ada dua orang, proxy dipasang autentikasi user proxy dengan enkripsi MD5 dengan dua username, yaitu luffybelikapalyyy dengan password luffy_yyy dan zorobelikapalyyy dengan password zoro_yyy 
 Langkah - langkah :
-- 
+- Pada Water7, install ```apt-get install apache2-utils```
+- Masukkan perintah berikut untuk menambahkan 2 user sesuai perintah soal :  
+```htpasswd -c /etc/squid/passwd luffybelikapala01``` dengan password ```luffy_a01```  
+```htpasswd  /etc/squid/passwd zorobelikapala01``` dengan password ```zoro_a01```
+- Ubah ```/etc/squid/squid.conf``` seperti berikut :  
+![1](https://user-images.githubusercontent.com/65168221/141644790-dceb3e83-ff17-4f3c-b53c-1e1d00fc68d6.png)
+
+- ```service squid restart```
+- Coba pada loguetown misalnya dengan membuka ```http://its.ac.id```  
+![2](https://user-images.githubusercontent.com/65168221/141644793-894d09f9-25df-4ab2-a914-b1cd4c06dbae.png)  
+![3](https://user-images.githubusercontent.com/65168221/141644795-3686a33c-a6f3-49bb-ae45-42a22d26a76b.png)
 
 
 ### 10 Transaksi jual beli tidak dilakukan setiap hari, oleh karena itu akses internet dibatasi hanya dapat diakses setiap hari Senin-Kamis pukul 07.00-11.00 dan setiap hari Selasa-Jum’at pukul 17.00-03.00 keesokan harinya (sampai Sabtu pukul 03.00) 
 Langkah - langkah :
+- Pada water 7 buat file baru ```nano /etc/squid/acl.conf``` dan ubah seperti berikut :  
+![1](https://user-images.githubusercontent.com/65168221/141644883-c8bb4ca5-32bd-4403-a8ac-f12269df638d.png)
+
+- Ubah ```/etc/squid/squid.conf``` seperti berikut :
+![2](https://user-images.githubusercontent.com/65168221/141644989-a7ca4a54-c7c3-44e3-818d-deb6dd753b7f.png)
+
+- ```service squid restart```
+- Coba jalankan pada loguetown, jika diluar waktu yang ditentukan:   
+![3](https://user-images.githubusercontent.com/65168221/141644993-62f4342a-82b3-4642-b068-9ccc577b854a.png)  
+![4](https://user-images.githubusercontent.com/65168221/141645005-68634710-2b43-4752-89df-8cfe93d10b71.png)
+
+- Jika sesuai waktu yang ditentukan:  
+![5](https://user-images.githubusercontent.com/65168221/141645012-5e4b58ff-dc1a-4516-a03e-95d7bd9b43ca.png)  
+![6](https://user-images.githubusercontent.com/65168221/141645015-263af4d0-2170-489b-99d3-74c02ef3647d.png)
 
 
 ### 11 Agar transaksi bisa lebih fokus berjalan, maka dilakukan redirect website agar mudah mengingat website transaksi jual beli kapal. Setiap mengakses google.com, akan diredirect menuju super.franky.yyy.com dengan website yang sama pada soal shift modul 2. Web server super.franky.yyy.com berada pada node Skypie 
