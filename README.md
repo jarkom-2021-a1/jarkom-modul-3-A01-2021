@@ -216,12 +216,106 @@ Langkah - langkah :
 
 ### 11 Agar transaksi bisa lebih fokus berjalan, maka dilakukan redirect website agar mudah mengingat website transaksi jual beli kapal. Setiap mengakses google.com, akan diredirect menuju super.franky.yyy.com dengan website yang sama pada soal shift modul 2. Web server super.franky.yyy.com berada pada node Skypie 
 Langkah - langkah :
+**Pada EniesLobby**
+- Edit file `/etc/bind/named.conf.local` seperti pada gambar berikut:
+![Screenshot (57)](https://user-images.githubusercontent.com/72863287/141643036-6f84ed3b-2a0a-401c-8877-47b9ad212260.png)
+
+- Buat file baru dengan filepath `/etc/bind/jarkom/super.franky.a01.com` dan isi seperti pada gambar berikut:
+![Screenshot (56)](https://user-images.githubusercontent.com/72863287/141643043-00993aeb-3e8a-4d03-9dcf-d242811526c2.png)
+
+- Restart bind9.
+  ```
+  service bind9 restart
+  ```
+**Pada Skypie**
+- Install aplikasi apache, PHP, dan libapache2-mod-php7.0.
+  ```
+  apt-get install apache2 -y
+  apt-get install php -y
+  apt-get install libapache2-mod-php7.0 -y
+  ```
+- Buat file baru dengan filepath `/etc/apache2/sites-available/super.franky.a01.com.conf` dan isi seperti pada gambar berikut:
+![Screenshot (58)](https://user-images.githubusercontent.com/72863287/141643106-8832ce86-efe8-474e-aa14-2169fa511ccb.png)
+
+- Aktifkan konfigurasi super.franky.a01.com.
+
+  ```
+  a2ensite super.franky.a01.com
+  ```
+- Restart apache.
+  ```
+  service apache2 restart
+  ```
+- Download file zip menggunakan `wget` dan simpan pada `/var/www`.
+
+  ```
+  wget https://github.com/FeinardSlim/Praktikum-Modul-2-Jarkom/raw/main/super.franky.zip -P /var/www/
+  ```
+
+- Unzip file yang sudah didownload sebelumnya dan simpan pada `/var/www`.
+
+  ```
+  unzip /var/www/super.franky.zip -d /var/www
+  ```
+
+- Ganti nama folder `super.franky` menjadi `super.franky.a01.com` pada `/var/www/`.
+
+  ```
+  mv /var/www/super.franky /var/www/super.franky.a01.com
+  ```
+- Pastikan isi folder `/var/www/super.franky.a01.com` sudah seperti ini
+![Screenshot (59)](https://user-images.githubusercontent.com/72863287/141643157-98579dbe-db3a-43d6-b46d-72d21c9534dc.png)
+
+**Pada Water7**
+- Edit file `/etc/squid/squid.conf` lalu tambahkan potongan config berikut:
+```
+acl BLACKLIST dstdomain google.com
+deny_info http://super.franky.a01.com/ BLACKLIST
+http_reply_access deny BLACKLIST
+```
+- Restart squid.
+  ```
+  service squid restart
+  ```
+**Pada Loguetown**
+- Buka `google.com` menggunakan lynx sehingga akan menampilkan laman seperti berikut.
+![Screenshot (60)](https://user-images.githubusercontent.com/72863287/141643215-d4f18a35-ee48-4419-9c7b-d35edf3f2500.png)
 
 ### 12 Saatnya berlayar! Luffy dan Zoro akhirnya memutuskan untuk berlayar untuk mencari harta karun di super.franky.yyy.com. Tugas pencarian dibagi menjadi dua misi, Luffy bertugas untuk mendapatkan gambar (.png, .jpg), sedangkan Zoro mendapatkan sisanya. Karena Luffy orangnya sangat teliti untuk mencari harta karun, ketika ia berhasil mendapatkan gambar, ia mendapatkan gambar dan melihatnya dengan kecepatan 10 kbps 
 Langkah - langkah :
+**Pada Water7**
+- Buat file bernama `acl-bandwidth.conf` di folder squid.
+- Edit file `/etc/squid/acl-bandwidth.conf` seperti pada gambar berikut:
+
+![Screenshot (65)](https://user-images.githubusercontent.com/72863287/141643622-6d8635e1-d91c-426b-995a-64328385d90b.png)
+
+- Tambahkan potongan config `include /etc/squid/acl-bandwidth.conf` pada file `/etc/squid/squid.conf` seperti pada gambar berikut:
+
+![Screenshot (63)](https://user-images.githubusercontent.com/72863287/141643295-89b29fae-10b2-4cc4-8e1c-10275a7f51a7.png)
+
+- Restart squid.
+  ```
+  service squid restart
+  ```
+**Pada Loguetown**
+- Buka `super.franky.a01.com` menggunakan lynx dengan akun Luffy dan coba download file `background-frank.jpg`. Dapat dilihat ada delay bandwidth.
+
+![Screenshot (55)](https://user-images.githubusercontent.com/72863287/141643304-6de7bccf-6fdb-405c-a2f2-a36a1a740d80.png)
+
+- Buka `super.franky.a01.com` menggunakan lynx dengan akun Luffy dan coba download file `bukanfrankytapirandom.99689`. Dapat dilihat ada delay bandwidth.
+
+![2021-11-12 22-12-02-1(1)-1](https://user-images.githubusercontent.com/72863287/141644121-bf1aa5c4-a8c7-4e82-8827-b1062009fdb1.gif)
 
 ### 13 Sedangkan, Zoro yang sangat bersemangat untuk mencari harta karun, sehingga kecepatan kapal Zoro tidak dibatasi ketika sudah mendapatkan harta yang diinginkannya 
 Langkah - langkah :
+**Pada Loguetown**
+- Buka `super.franky.a01.com` menggunakan lynx dengan akun Zoro dan coba download file `background-frank.jpg`. Dapat dilihat tidak ada delay bandwidth.
+
+![2021-11-13 19-48-28](https://user-images.githubusercontent.com/72863287/141644464-80540539-eea5-4984-a260-bb65b2dab460.gif)
+
+- Buka `super.franky.a01.com` menggunakan lynx dengan akun Zoro dan coba download file `roboto-frankyasdjklkljqwennmn.listingbro`. Dapat dilihat tidak ada delay bandwidth.
+
+![2021-11-13 19-48-56](https://user-images.githubusercontent.com/72863287/141644466-82935ea8-a95b-46c1-b7b3-f959e7e962db.gif)
 
 
 Kendala : 
